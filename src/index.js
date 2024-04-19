@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { databaseConnection } = require('../config/database');
 const { viewEngineSetup } = require('../config/view-engine');
+const router = require('./router');
 const app = express();
 const port = 3030;
 
@@ -11,6 +12,7 @@ app.use('/static', express.static('public'));
 viewEngineSetup(app);
 app.use(cors());
 app.use(cookieParser());
+app.use(router);
 
 databaseConnection()
     .then(() => {
