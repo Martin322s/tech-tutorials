@@ -1,6 +1,3 @@
-# Writing the README.md content to a markdown file
-
-readme_content = """
 # Tutorials Application
 
 ## Project Overview
@@ -52,11 +49,3 @@ Contributions are welcome! Please fork the repository and create a pull request 
 
 ## License
 Distributed under the MIT License. See \`LICENSE\` for more information.
-"""
-
-# Save the content to a markdown file
-path = "/mnt/data/README.md"
-with open(path, "w") as file:
-    file.write(readme_content)
-
-path
