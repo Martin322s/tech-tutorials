@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
-import { CONNECTION_STRING } from './variables';
+const mongoose = require('mongoose');
+const { CONNECTION_STRING } = require('./variables');
 
-export const databaseConnection = () => mongoose.connect(CONNECTION_STRING);
+exports.databaseConnection = () => mongoose.connect(CONNECTION_STRING);

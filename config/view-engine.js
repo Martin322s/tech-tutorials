@@ -1,6 +1,6 @@
-import hbs from 'express-handlebars';
+const hbs = require('express-handlebars');
 
-export const viewEngineSetup = (app) => {
+exports.viewEngineSetup = (app) => {
     app.engine('hbs', hbs.engine({
         extname: 'hbs'
     }));

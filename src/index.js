@@ -1,10 +1,16 @@
-import express from 'express';
-import { databaseConnection } from '../config/database';
-import cors from 'cors';
+const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const { databaseConnection } = require('../config/database');
+const { viewEngineSetup } = require('../config/view-engine');
 const app = express();
 const port = 3030;
 
+app.use(express.urlencoded({ extended: false }));
+app.use('/static', express.static('public'));
+viewEngineSetup(app);
 app.use(cors());
+app.use(cookieParser());
 
 databaseConnection()
     .then(() => {
