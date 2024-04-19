@@ -1,13 +1,12 @@
 import express from 'express';
-import hbs from 'express-handlebars';
-import { databaseConnection } from '../constants/database';
+import { databaseConnection } from '../config/database';
 import cors from 'cors';
 const app = express();
 const port = 3030;
 
 app.use(cors());
 
-initializeDatabase()
+databaseConnection()
     .then(() => {
         console.log(">>>>> Database connected successfully! <<<<<");
         app.listen(port, () => console.log(`>> * Server is working at: http://localhost:${port} * <<`));
