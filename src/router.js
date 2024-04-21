@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 });
 
 router.use('/auth', authController);
-router.use('/tutorials', tutorialsController);
+router.use('/course', tutorialsController);
 
 router.get('*', (req, res) => {
     
