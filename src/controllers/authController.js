@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { isGuest } = require('../middlewares/authMiddleware');
 const authService = require('../services/authService');
 
 router.get('/register', (req, res) => {
@@ -17,7 +18,7 @@ router.post('/register', async (req, res) => {
                     res.cookie('session', token);
                     res.status(200).redirect('/');
                 } else {
-                    res.status(400).render('auth/register', { error: user });
+                    res.status(400).render('auth/register', { message: user });
                 }
             } else {
                 throw {
@@ -30,7 +31,7 @@ router.post('/register', async (req, res) => {
             }
         }
     } catch (err) {
-        res.status(400).render('auth/register', { error: err.message });
+        res.status(400).render('auth/register', { message: err.message });
     }
 });
 
