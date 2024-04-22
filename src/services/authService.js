@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const jwtSign = promisify(jwt.sign);
-const { SALT_ROUNDS, SECRET } = require('../../config/constants');
+const { SALT_ROUNDS, SECRET } = require('../../config/variables');
 
 exports.registerUser = async (userData) => {
-    const user = await User.findOne({ email: userData.email });
+    const user = await User.findOne({ username: userData.username });
 
     try {
         if (!user) {
@@ -15,7 +15,7 @@ exports.registerUser = async (userData) => {
             const user = await User.create({ ...userData, password: hashedPassword });
             return user;
         } else {
-            throw { message: 'User with this email already exsists!' }
+            throw { message: 'User with this username already exsists!' }
         }
     } catch (err) {
         return err.message;

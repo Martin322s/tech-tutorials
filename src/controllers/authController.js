@@ -5,12 +5,12 @@ router.get('/register', (req, res) => {
     res.render('auth/register');
 });
 
-router.post('/register', isGuest, async (req, res) => {
-    const { email, password, rePassword } = req.body;
+router.post('/register', async (req, res) => {
+    const { username, password, rePassword } = req.body;
     try {
         if (!Object.values(req.body).some(x => x === '')) {
             if (password === rePassword) {
-                const user = await authService.registerUser({ email, password });
+                const user = await authService.registerUser({ username, password });
 
                 if (typeof user === 'object') {
                     const token = await authService.generateToken(user);
