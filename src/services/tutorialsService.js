@@ -10,3 +10,9 @@ exports.enrollCourse = async (courseId, userId) =>
         { $push: { usersEnrolled: userId } }
     );
 
+exports.deleteCourse = async (courseId) => await Course.findByIdAndDelete({ _id: courseId });
+exports.getUser = async (userId) => await User.findById({ _id: userId });
+exports.updateUser = async (userId, userData) => await User.findByIdAndUpdate(userId, userData);
+exports.updateCourse = async (courseId, data) => await Course.findByIdAndUpdate(courseId, data);
+exports.getUserByEmail = async (email) => await User.findOne({ email: email });
+exports.searchCourse = async (email) => await User.find({ email: email }).populate('enrolledCourses');
