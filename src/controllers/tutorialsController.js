@@ -7,14 +7,13 @@ router.get('/create', isAuth, (req, res) => {
     res.render('create-course');
 });
 
-router.post('/create', (req, res) => {
-    const { title, description, imageUrl, duration } = req.body;
-
+router.post('/create', async (req, res) => {
     try {
         if (Object.values(req.body).some(x => x === '')) {
             alert('All fields are required!');
         } else {
-            
+            await tutorialsService.createCourse(req.body);
+            res.redirect('/');
         }
     } catch (err) {
 
