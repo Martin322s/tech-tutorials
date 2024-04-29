@@ -61,9 +61,13 @@ router.post('/login', isGuest, async (req, res) => {
 });
 
 router.get('/logout', isAuth, (req, res) => {
-    if (req.headers.cookie) {
-        res.clearCookie('session');
-        res.redirect('/');
+    try {
+        if (req.headers.cookie) {
+            res.clearCookie('session');
+            res.redirect('/');
+        }
+    } catch (err) {
+        res.render('/', { error: err.message });
     }
 });
 
