@@ -2,12 +2,21 @@ const router = require('express').Router();
 const tutorialsService = require('./services/tutorialsService');
 const authController = require('./controllers/authController');
 const tutorialsController = require('./controllers/tutorialsController');
-const { isAuth } = require('./middlewares/authMiddleware');
+const { isAuth, isGuest } = require('./middlewares/authMiddleware');
 
-router.get('/', isAuth, async (req, res) => {
-    const userId = req.user;
-    const user = await tutorialsService.getUser(userId);
-    res.render('home', { user: user?.username });
+router.get('/', async (req, res) => {
+    try {
+        const userId = req?.user;
+        let user;
+
+        if (userId) {
+            user = await tutorialsService.getUser(userId);
+        }
+
+        res.render('home', { user: user?.username })
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 router.use('/auth', authController);

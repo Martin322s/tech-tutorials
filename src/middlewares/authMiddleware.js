@@ -26,7 +26,6 @@ exports.isAuth = (req, res, next) => {
 }
 
 exports.isGuest = (req, res, next) => {
-    console.log(username);
     if (req.user) {
         res.redirect('/');
     } else {

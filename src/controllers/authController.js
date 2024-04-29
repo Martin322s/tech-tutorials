@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { isGuest } = require('../middlewares/authMiddleware');
 const authService = require('../services/authService');
 
 router.get('/register', (req, res) => {
@@ -37,6 +36,13 @@ router.post('/register', async (req, res) => {
 
 router.get('/login', (req, res) => {
     res.render('auth/login');
+});
+
+router.get('/logout', (req, res) => {
+    if (req.headers.cookie) {
+        res.clearCookie('session');
+        res.redirect('/');
+    }
 });
 
 module.exports = router;
