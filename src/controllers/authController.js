@@ -39,6 +39,27 @@ router.get('/login', isGuest, (req, res) => {
     res.render('auth/login');
 });
 
+router.post('/login', isGuest, async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        if (username !== '' && password !== '') {
+            const user = await authService.loginUser({ username, password });
+            if (typeof user === 'object' && !user.message) {
+                const token = await authService.generateToken(user);
+                res.cookie('session', token);
+                res.redirect('/');
+            } else {
+                throw user;
+            }
+        } else {
+            throw { message: 'All fields must be filled correctly!' }
+        }
+    } catch (err) {
+        res.status(401).render('auth/login', { error: err.message });
+    }
+});
+
 router.get('/logout', isAuth, (req, res) => {
     if (req.headers.cookie) {
         res.clearCookie('session');
