@@ -7,12 +7,17 @@ router.get('/', async (req, res) => {
     try {
         const userId = req?.user;
         let user;
+        let courses = await tutorialsService.getAllCourses();
+        courses = courses.map(x => {
+            x.createdAt = x.createdAt.toString().split('2024')[0];
+            return x;
+        })
 
         if (userId) {
             user = await tutorialsService.getUser(userId);
         }
 
-        res.render('home', { user: user?.username })
+        res.render('home', { user: user?.username, courses: courses });
     } catch (err) {
         console.log(err);
     }
