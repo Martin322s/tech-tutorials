@@ -2,7 +2,6 @@ const router = require('express').Router();
 const tutorialsService = require('./services/tutorialsService');
 const authController = require('./controllers/authController');
 const tutorialsController = require('./controllers/tutorialsController');
-const { isAuth, isGuest } = require('./middlewares/authMiddleware');
 
 router.get('/', async (req, res) => {
     try {
